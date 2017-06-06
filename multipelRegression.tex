@@ -1,18 +1,57 @@
-\documentclass[11pt,twoside,a4paper]{article}
+%!TEX program = lualatex
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{hyperref}
+%\usepackage{color}
+\usepackage[svgnames]{xcolor}
+
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = gray,
+     urlcolor=Blue
+}
 
 \begin{document}
 
 \section{Introduktion til multipel regression}
 
-henvisning til lineær regression
+Fra simpel \href{http://www.webmatematik.dk/lektioner/matematik-b/regression}{lineær
+regressions} analyse ved vi, hvordan man med
+\href{http://www.webmatematik.dk/lektioner/matematik-b/regression}{mindste kvadraters metode}
+bestemmer den lineære funktion, som passer bedst til punkterne.
 
-hvad er multipel regression
+Vi har altså en række punkter \((y_i, x_i)\) for \(i=1,\ldots,n\) og ønsker at bestemme
+\(a\) og \(b\) på en sådan måde, at den lineære funktion
+\begin{displaymath}
+  y = b + a x
+\end{displaymath}
+ligger så tæt på alle punkterne \((y_i, x_i)\) som muligt.
+
+Verden er dog sjældent så simpelt indrettet, at man kan beskrive en afhængig variabel \(y\)
+med kun en enkelt forklarende variabel \(x\).
+
+Multipel regression er en udvidelse af ovenstående, hvor vi i stedet for en enkelt forklarende
+variabel, har to eller flere forklarende variable.
 
 eksempel
+
+For en række punkter (observationer) \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) hvor \(i=1,\ldots,n\) øsnker vi
+at bestemme en række konstanter \(b_0,b_1,b_2,\ldots,b_p\) så funktionen
+\begin{displaymath}
+  y = b_0 + b_1 x_1 + b_2 x_2 + \dots b_p x_p
+\end{displaymath}
+ligger så tæt på alle punkterne \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) som muligt.
+
 
 mere formel definition
 
 sammenlign med lineær regression
+
+\subsubsection{Historie}
+
 
 \subsection{Korrelationskoefficient}
 
