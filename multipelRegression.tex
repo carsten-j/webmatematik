@@ -1,25 +1,74 @@
-\section{Introduktion til multipel regression}
+% !TEX root = webmatematik.tex
 
+\section{Multipel regression}
+
+\subsection{Introduktion}
+foo
 Fra simpel \href{http://www.webmatematik.dk/lektioner/matematik-b/regression}{lineær
 regressions} analyse ved vi, hvordan man med
 \href{http://www.webmatematik.dk/lektioner/matematik-b/regression}{mindste kvadraters metoden}
-bestemmer den lineære funktion, som passer bedst til en række observationer i 2D planen.
+bestemmer den lineære funktion, som bedst passer til en række observationer i 2D planen.
 
-Vi har altså her en række observationer \((y_i, x_i)\) for \(i=1,\ldots,n\) og ønsker at bestemme konstanterne \(a\) og \(b\) på en sådan måde, at den lineære funktion
+Vi har altså her observationer \((y_i, x_i)\) for \(i=1,\ldots,n\) og ønsker at bestemme konstanterne \(a\) og \(b\) på en sådan måde, at den lineære funktion
 \begin{displaymath}
   y = b + a x
 \end{displaymath}
 ligger så tæt på alle observationer \((y_i, x_i)\) som muligt.
 
-Verden er dog sjældent så simpelt indrettet, at man kan beskrive en afhængig variabel \(y\)
-med kun en enkelt forklarende variabel \(x\).
+Verden er dog sjældent så simpelt indrettet, at man kan beskrive en \textit{afhængig} variabel \(y\)
+med kun en enkelt \textit{forklarende} variabel \(x\).
 
 Multipel regression er en udvidelse af simpel regression, hvor vi i stedet for en enkelt forklarende
-variabel har to eller flere forklarende variable. Forklarende varibale kaldes til tider også for kovarianter.
+variabel har to eller flere forklarende variable. For\-kla\-ren\-de variable kaldes til tider også for \textit{kovarianter}.
+
+\subsection{Model}
+Vi har \(n\) observationer \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) hvor \(i=1,\ldots,n\) og ønsker at bestemme konstanter \(b_0,b_1,b_2,\ldots,b_p\), så funktionen
+\begin{displaymath}
+  y = b_0 + b_1 x_1 + b_2 x_2 + \cdots b_p x_p
+\end{displaymath}
+ligger så tæt på alle punkterne \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) som muligt.
+
+Bemærk, at der nu er et dobbelt indeks på \(x\)'erne. Det er nødvendigt, da vi nu istedet for en enkelt forklarende variabel, har \(p\) forklarende variable. Så når vi skriver
+
+\begin{displaymath}
+  x_{ji}, \quad j=1,\ldots,p \textrm{ og } i=1,\ldots,n
+\end{displaymath}
+er der tale om den \(j\)'te forklarende variable og den \(i\)'te observation.
+
+Koefficienter bliver normal fundet (estimeret) ved brug af mindste kvadrater metoden, dvs man vælger \(b_0, b_1, \ldots , b_p\)  således at udtrykket
+\begin{displaymath}
+  RSS =\sum^n_{i=1} \big (y_i - \widehat{b_0} - \widehat{b_1} x_{i1} - \widehat{b_2} x_{i2} - \dots - \widehat{b_p} x_{ip} \big)^2
+\end{displaymath}
+minimeres. RSS er engelsk for Residuals Sum of Squares. Dette er samme fremgangsmetode som kendes fra simpel lineær regression.
+
+Formlen for koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er noget mere kompliceret i det generelle tilfælde, så den springer vi over her. Men nedenfor viser vi et eksempel på, hvordan man kan bestemme koefficienter ved brug af Microsoft Excel.
+
+Sommetider omtales \(b_0\) som skæringen og de øvrige \(b\)'er som hældningen.
+
+I tilfældet med simpel regression bestemmer vi en ret linie som passer bedst til observationerne. Det er umuligt at visualisere multipel regression i det generelle tilfælde. For det særlige tilfælde, hvor vi har to forklarende variable \(x_1\) og \(x_2\) og dermed modellen
+
+\begin{displaymath}
+  y = b_0 + b_1 x_1 + b_2 x_2
+\end{displaymath}
+
+så kan vi stadig visualisere løsningen. Vi kan tænke på observationerne \((x_{1i}, x_{2i}, y_i), i=1,\ldots,n\) som punkter i rummet
+
+INDSÆT TEGNING
+
+Løsningen er nu ikke længere en ret linie, men derimod den plan som ligger tættest på alle punkterne.
+
+
+
+
+Hvis koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er kendt, kan vi bruge ovennævnte formel
+make predictions using the formula
+\begin{displaymath}
+\hat{y} = \hat{b_0} + \hat{b_1}x_1 + \hat{b_2}x_2 + \cdots + \hat{b_p}x_p
+\end{displaymath}
 
 Lad os se på et (simplificeret) eksempel på multipel regressionsanalyse. Eksemplet er hentet fra
 opgaven ``Prisdannelse på ejerlejligheder i København'' af Vibeke Stål og Anne Melvej Stennevad.
-Forfatterne undersøger i projektet om der er en lineær sammenhæng mellem prisen på ejerlejligheder i København og en række faktorer såsom fx renteniveau og byggeomkostninger.
+Forfatterne undersøger, om der er en lineær sammenhæng mellem prisen på ejerlejligheder i København og en række faktorer såsom fx renteniveau og byggeomkostninger.
 
 \begin{displaymath}
   pris = b_0 + b_1 * byggeomkostninger + b_2 * renteniveau
@@ -30,28 +79,9 @@ hvad bruger vi regression til - forudsige
 
 
 
-For en række observationer \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) hvor \(i=1,\ldots,n\) ønsker vi at bestemme konstanter \(b_0,b_1,b_2,\ldots,b_p\), så funktionen
-\begin{displaymath}
-  y = b_0 + b_1 x_1 + b_2 x_2 + \cdots b_p x_p
-\end{displaymath}
-ligger så tæt på alle punkterne \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) som muligt.
 
-Hvis koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er kendt, kan vi bruge ovennævnte formel
-make predictions using the formula
-\begin{displaymath}
-\hat{y} = \hat{b_0} + \hat{b_1}x_1 + \hat{b_2}x_2 + \cdots + \hat{b_p}x_p
-\end{displaymath}
 
-Koefficienter bliver normal fundet (estimeret) ved brug af mindste kvadrater metoden, dvs man vælger \(b_0, b_1, \ldots , b_p\)  således at udtrykket
-\begin{displaymath}
-  RSS = \sum^n_{i=1} (y_i - \hat{y_i})^2 = \sum^n_{i=1} (y_i - \hat{b_0} - \hat{b_1}x_{i1} - \hat{b_2} x_{i2} - \dots - \hat{b_p} x_{ip})^2
-\end{displaymath}
-minimeres. RSS er engelsk for Residuals Sum of Squares. Dette er samme fremgangsmetode som kendes fra simpel lineær regression.
 
-$b_0$ intercept - skæring
-andre koefficienter - hældning
-
-ingen formel da den er ret kompliceret
 
 praktisk eksempel gennemgang i Excel
 
