@@ -16,7 +16,7 @@ all: webmatematik.pdf
 # -pvc (preview continuously) watches the directory for changes.
 # -quiet suppresses most status messages (https://tex.stackexchange.com/questions/40783/can-i-make-latexmk-quieter).
 webmatematik.pdf: webmatematik.tex
-	latexmk -quiet $(PREVIEW_CONTINUOUSLY) -f -pdf -pdflatex="lualatex -synctex=1 -interaction=nonstopmode" -use-make webmatematik.tex
+	latexmk -quiet $(PREVIEW_CONTINUOUSLY) -f -pdf -pdflatex="lualatex -synctex=1 -interaction=nonstopmode %O %B" -use-make webmatematik.tex
 
 # The .PHONY rule keeps make from processing a file named "watch" or "clean".
 .PHONY: watch

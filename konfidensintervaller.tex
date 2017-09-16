@@ -1,32 +1,18 @@
 % !TEX root = webmatematik.tex
 
 \section{Konfidensintervaller}
-Hvis vi ønsker at bestemme middelværdien for højden af alle gymnasieelever i
-Danmark, kan vi fx udvælge en 1.g.\ klasse i Københavner området og beregne
-middelværdien for de studerendes højde i denne klasse.
+Hvis vi ønsker at bestemme middelværdien for højden af alle gymnasieelever i Danmark, kan vi fx udvælge en 1.g.\ klasse i Københavner området og beregne middelværdien for de studerendes højde i denne klasse.
 
-Den beregnede middelværdi er så et estimat for middelværdien for højden for alle
-gymanisie elever i Danmark. Hvis vi nu vælger en anden klasse og igen beregner
-middelværdien, så får vi et andet estimat for middelværdien.
+Den beregnede middelværdi er så et estimat for middelværdien for højden for alle gymanisie elever i Danmark. Hvis vi nu vælger en anden klasse og igen beregner middelværdien, så får vi et andet estimat for middelværdien.
 
-Dette estimat ligger sikkert tæt på den første beregnede middelværdi uden at være
-identisk med denne. Vi kalder det at udvælge en gymnasieklasse for tage en stikprøve
-ud af den samlede \textbf{population} bestående af samtlige gymnasieelever i Danmark.
+Dette estimat ligger sikkert tæt på den første beregnede middelværdi uden at være identisk med denne. Vi kalder det at udvælge en gymnasieklasse for tage en stikprøve ud af den samlede \textbf{population} bestående af samtlige gymnasieelever i Danmark.
 
-Stikprøvens middelværdi kaldes også for et punktestimat for populations
-middelværdi. Men hvis to forskellige stikprøver giver to forskellige estimater for
-middelværdien, hvordan kan vi så stole på estimatet. Hvad nu hvis vi i stedet for
-bare et enkelt punktestimat kunne bestemme et interval, som med stor sandsynlighed
-indeholder den rigtige ukendte middelværdi for hele populatioen.
+Stikprøvens middelværdi kaldes også for et punktestimat for populations middelværdi. Men hvis to forskellige stikprøver giver to forskellige estimater for middelværdien, hvordan kan vi så stole på estimatet. Hvad nu hvis vi i stedet for bare et enkelt punktestimat kunne bestemme et interval, som med stor sandsynlighed indeholder den rigtige ukendte middelværdi for hele populatioen.
 
-Et sådan interval kaldes også for et konfidensinterval. Et konfidensinterval er
-kendetegnet ved et niveau \(1 - \alpha\) og en typisk værdi for \(\alpha\) er \(5\),
-hvor man så taler om et \(1-\alpha = 95\%\) konfidensinterval.
+Et sådan interval kaldes også for et konfidensinterval. Et konfidensinterval er kendetegnet ved et niveau \(1 - \alpha\) og en typisk værdi for \(\alpha\) er \(5\), hvor man så taler om et \(1-\alpha = 95\%\) konfidensinterval.
 
 \subsection{Formel}
-Hvis vi antager, at gymnasieelevers højde er normalfordelt med ukendt middelværdi
-\(\mu\) og en kendt spredning på \(\sigma\), så er formlen for et
-\(95\%\)-konfidens\-interval
+Hvis vi antager, at gymnasieelevers højde er normalfordelt med ukendt middelværdi \(\mu\) og en kendt spredning på \(\sigma\), så er formlen for et \(95\%\)-konfidens\-interval
 
 \begin{equation}
   95\%\mbox{-konfidensinterval} = \Big[\bar{x} - 1,96⋅\frac{\sigma}{\sqrt{n}};
@@ -40,9 +26,7 @@ hvor
 Vi vender tilbage til konstanten \(1,96\).
 
 \subsection{Eksempel}
-Hvis vi antager at gymnasieelevers højde er normalfordelt med ukendt middelværdi
-\(\mu\) og standard afgivelse på \(\sigma=10\mbox{cm}\), og vi har følgende
-stikprøve på 27 elevers højde (målt i cm)
+Hvis vi antager at gymnasieelevers højde er normalfordelt med ukendt middelværdi \(\mu\) og standard afgivelse på \(\sigma=10\mbox{cm}\), og vi har følgende stikprøve på 27 elevers højde (målt i cm)
 
 \begin{align*}
   &175, 161, 177, 173, 179, 174, 173, 184, 184, 170, 169, 175, 175, 186, \\
@@ -66,7 +50,7 @@ dækker 95\% af arealet, skal vi altså fjerne 2,5\% af arealet i begge ender.
 \includegraphics[height=6cm]{normalfordeling.JPG}
 \end{center}
 
-De \(\plusminus 1,96\) svarer præcis til det område under kurven som giver en areal
+De \(\pm 1,96\) svarer præcis til det område under kurven som giver en areal
 på 95\%. Andre ofte anvendte konfidensintervaller er angivet i denne tabel.
 
 \begin{table}[]
@@ -101,7 +85,7 @@ norminv
 hvor 0 angiver middelværdien og 1 variansen.
 
 \subsection{Konfidensinterval for binominalfordelinger}
-Ved en rundspørge på et gymnasie har 62 af 1.g. elever sagt, at de var tilfredse
+Ved en rundspørge på et gymnasie har 62 af 1.g\. elever sagt, at de var tilfredse
 med introduktionsforløbet. 29 elever svarede, at de ikke var tilfredse.
 
 Hvordan bestemmer man et \(95\%\)-konfidens\-interval for andelen af tilfredse
