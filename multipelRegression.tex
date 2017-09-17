@@ -67,53 +67,101 @@ Hvordan bestemmer man \(b_0, b_1\) og \(b_2\) hvis vi har observationer som vist
 \begin{center}
 \includegraphics[height=12cm]{excel1.JPG}
 \end{center}
-I menuen under ``Tools'' finder man ``Data Analysis''\footnote{hvordan installerer man data analysis indsæt fodnote}
+Hvis du selv ønsker at arbejde med dette datasæt, så kan det downloades via dette \href{https://gist.github.com/carsten-j/42595fb16fc646a22bf3f4bec1d81e59/archive/b45e8d1e5e14b83aa16daa652821a8d7b7a3b56d.zip}{link}.
+
+I menuen under ``Tools'' finder man ``Data Analysis''. Hvis Data Analysis ikke er en del af menuen, så er her en \href{https://support.office.com/en-us/article/Load-the-Analysis-ToolPak-6a63e598-cd6d-42e3-9317-6b40ba1a66b4}{vejledning} til hvordan man får den installeret i Excel.
 \begin{center}
 \includegraphics[height=8cm]{menu.JPG}
 \end{center}
 og dernæst fås en oversigt over de forskellige analyseværktøjer. Vælg ``Regression''
 \begin{center}
-\includegraphics[height=4cm]{analysisTools.JPG}
+\includegraphics[height=5cm]{analysisTools.JPG}
 \end{center}
 Så dukker denne regression menu op
 \begin{center}
-\includegraphics[height=9cm]{regression.JPG}
+\includegraphics[height=10cm]{regression.JPG}
 \end{center}
 Her har vi som ``Input Y Range'' valgt kolonnen med prisindeks (inkl.\ overskriften). Dette er vores afhængige variable. Dernæst har vi som ``Input X Range'' valgt kolonnerne med data for byggeomkostninger og renter (igen inkl.\ overskrift). Ved at sætte kryds i ``Labels'' checkboksen fortæller vi Excel, at vores valg af inputdata indeholder overskrifter. Det gør det nemmere at læse resultaterne. Som det sidste vælger vi også ``Residual Plots''.
 
 Som udgangspunkt bliver alle resultater placeret i en nyt sheet. Så er det lettere at slette dette sheet og begynde forfra, hvis man får behov for det.
 
 Der er en masse output fra beregningen, men i første omgang fokuseres vi på tallene under overskriften ``Regression Statistics'':
-\begin{center}
+\begin{center}\label{tabel:resultat}
 \includegraphics[height=4cm]{resultat.JPG}
 \end{center}
-hvor vi sætter fokus på Multiple R og R Square. På dansk kaldes disse to værdier for determinations- og korrelationskoefficienten.
-
+hvor vi sætter fokus på Multiple R og R Square. På dansk kaldes disse to værdier for korrelations- og determinationskoefficienten.
 
 \subsection{Korrelationskoefficienten}
-Det er med Excel altid muligt at bestemme konstanterne \(b_0,b_1,b_2,\ldots,b_p\), så spørgsmålet er mere, om det giver mening at forsøge at modellere en lineær sammenhæng mellem en afhængig variable og en eller flere forklarende variable. Det kan korrelationskoefficienten hjælpe os med at afklare.
+Det er med Excel altid muligt at bestemme konstanterne \(b_0,b_1,b_2,\ldots,b_p\), så spørgsmålet er mere, om det giver mening at forsøge at modellere en lineær sammenhæng mellem en afhængig variable og en eller flere forklarende variable. Det kan korrelationskoefficienten hjælpe os med at afklare. I Excel betegnes korrelationskoefficienten med ``Multiple R''. Men typisk bruger man blot betegnelsen R for korrelationskoefficienten.
 
+\subsubsection{Fortolkning af korrelationskoefficienten}
+Korrelation mellem to variable betyder, at hvis den ene variables ændre sig, så giver det en forudsigelig ændring i den anden variabel. Korrelationskoefficienten ligger altid mellem 0 og 1. Hvis den er 1, er der en deterministisk korrelation mellem variablene, dvs en ændring i den ene variabel vil helt sikkert medføre en ændring i den anden variable. Hvis værdien derimod er 0, så er der absolut ingen lineær sammenhæng mellem de to variable. Skematisk ser det ud som i tabel~\ref{tabel:correlation}.
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{tabel:correlation}
+\begin{tabular}{|r|l|}
+\hline
+\multicolumn{1}{|l|}{R værdi} & Fortolkning                     \\ \hline
+1,0                           & Perfekt lineær sammenhæng       \\ \hline
+0,0                           & Absolut ingen lineær sammenhæng \\ \hline
+0,9                           & Stærk lineær sammenhæng         \\ \hline
+0,5                           & Moderat lineær sammenhæng       \\ \hline
+0,2                           & Svag lineær sammenhæng          \\ \hline
+\end{tabular}
+\end{table}
+\textbf{Bemærk} at en høj grad af korrelation på ingen måder kan bruges til at postulere en årsagssammenhæng (kausalitet) mellem variable. Se afsnittet TODO for mere.
 
+Hvis multipel lineær regression skal give mening, så \textit{skal} der være en lineær sammenhæng mellem den afhængige variable og de forklarende variable. Hvis vi kigger på eksemplet fra tidligere, jvf tabel~\ref{tabel:resultat}, så ser vi, at der her er en korrelationskoefficient på ca. 0,9553 og at der dermed i dette tilfælde er en korrelation mellem variable pris, byggeomkostninger og rente.
 
-\subsubsection{Formel for korrelationskoefficient for 2 uafhængige variable}
-
-\subsubsection{Fortolkning af korrelationskoefficient}
-
-\begin{displaymath}
+\subsubsection{Formel for korrelationskoefficienten for to uafhængige variable}
+Den generelle formel for korrelationskoefficienten er kompliceret. TODO matrix notation. I tilfældet hvor vi kun har to uafhængige variable er det lidt nemmere at skrive formlen ned.
+\begin{displaymath}\label{eq:correlation}
   R = \frac{\sqrt{r^2_{yx_1} + r^2_{yx_2} - 2r_{yx_1} r_{yx_2} r_{{x_1}x_2}}}{\sqrt{1 - r^2_{{x_1}x_2}}}
 \end{displaymath}
+hvor fx
+\begin{displaymath}
+  r_{{y}{x_1}} = \frac{\sum{(y - \overbar{y})(x_1 - \overbar{x_1})}}{(n-1)s_{{y}{x_1}}}
+\end{displaymath}
+og
+\begin{displaymath}
+  \overbar{y} = \frac{y_{i}}{n}, \quad \overbar{x_1} = \frac{x_{1i}}{n}, \quad s_{y} = \sqrt{\frac{\sum{(y_{i} - \overbar{y})^2}}{n-1}}, \quad s_{x_1} = \sqrt{\frac{\sum{(x_{1i} - \overbar{x_1})^2}}{n-1}}
+\end{displaymath}
+Størrelsen \(r_{{y}{x_1}}\) er dybest set korrelationskoefficienten mellem variablene \(y\) og \(x_1\). Når formlen \ref{eq:correlation} er mere kompleks skyldes det, at vi også er nød til at betragte korrelationen mellem \(y\) og \(x_2\) og mellem \(x_1\) og \(x_2\).
 
-sammenhæng til simpel regression. se led falde bort
+Pointen med at opskrive formlen er ikke, at du skal kunne regne korrelationskoefficienten i hånden. Pointen er derimod at kunne sammenligne med simpel regressionsanalyse. Hvis vi nu kun har en enkelt forklarende variable \(x_1\) og \(x_2=0\), så forsvinder de fleste led i formlen~\ref{tabel:correlation}. Tilbage bliver kun de led, hvor \(x_2\) ikke indgår, dvs
+\begin{displaymath}
+  R = \frac{\sqrt{r^2_{yx_1}}}{\sqrt{1}} = r_{yx_1}
+\end{displaymath}
+hvilket præcis er korrelationskoefficienten for simpel lineær regression mellem den afhængige variabel \(y\) og den forklarende variabel \(x_1\).
 
-\subsection{Determinationskoefficient}
+\subsection{Determinationskoefficienten}
+I Excel hedder determinationskoefficienten ``R Square'', hvilket giver god mening, da formlen for determinationskoefficienten er kvadratet på korrelationskoefficienten, dvs
+\begin{displaymath}
+\mathrm{determinationskoefficienten} = R^2
+\end{displaymath}
+Man hører jænvligt alternative betegnelser for determinationskoefficienten som fx for\-kla\-rings\-grad\-en eller tilpasningsgraden.
 
-kaldes også forklaringsgraden
+\subsubsection{Fortolkning af Determinationskoefficienten}
+
+
+explained variance
+
+R er en statistik, der vil give nogle oplysninger om godhed fit af en model. I regression, R determinationskoefficienten er et statistisk mål for hvor godt regressionslinjen tilnærmer de reelle datapunkter. Et R på 1 angiver, at regressionslinien passer perfekt til dataene.
 
 \subsubsection{Formel}
 
 
 \subsection{Residualplot}
+I ligning ... definerede vi residualerne som forskellen mellem de observerede værdier og modellens værdier.
+advanced highschool stats
+data = fit + residuals
 
+advanced highschool stats:
+TIP: Use a residual plot to determine if a linear model is appropriate
+When a residual plot appears as a random cloud of points, a linear model is generally
+appropriate. If a residual plot has any type of pattern, a linear model is not
+appropriate.
 
 \subsection{Konfidensinterval for parametre}
 
@@ -126,12 +174,12 @@ anscombe
 kig på graf
 
 \subsection{model selection}
-
+avanceret
 \subsection{adjusted \(R^2\)}
 
 
 pas på med multicollinearity.
 
-\subsubsection{Historie}
+kausalitet
 
-
+andre CAS værktøjer
