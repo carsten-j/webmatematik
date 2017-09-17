@@ -1,18 +1,21 @@
+# load libraries
 library(rgl)
+library(car)
+# set working directory
 setwd("~/Projects/webmatematik")
-
+# prepare data
 tbl <- read.csv("dataR.csv")
-
+# extract data
 byggeomkostninger <- tbl$byggeomkostninger
 rente <- tbl$rente
 prisindeks <- tbl$prisindeks
-
-plot3d(byggeomkostninger, rente, prisindeks,
-       type = "s", size = 1.25, col = "blue", 
-       fit="linear", surface = TRUE, pos.res.col="red", neg.res.col="green")
-
-out=lm(prisindeks~byggeomkostninger+rente)
-b0=out$coefficients[1]
-b1=out$coefficients[2]
-b2=out$coefficients[3]
-planes3d(b1,b2,-1,b0,alpha=0.5,col="light grey")
+# create interactive 3D plot - this requires X11 to be installed
+scatter3d(byggeomkostninger, prisindeks,rente,
+          surface=TRUE, 
+          point.col="blue",
+          sphere.size=0.5,
+          residuals=TRUE, 
+          fit="linear",
+          neg.res.col="red", 
+          pos.res.col="green",
+          revolutions = 2)
