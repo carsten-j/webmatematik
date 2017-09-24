@@ -45,10 +45,10 @@ n                               & \(y_n\)                                       
 \end{table}
 for på den måde at vise, at vi har \(p\) forklarende variable og \(n\) observationer.
 Regressionskoefficienter bliver normal fundet (estimeret) ved brug af mindste kvadrater metoden, dvs man vælger \(b_0, b_1, \ldots , b_p\)  således at udtrykket
-\begin{equation}\label{eq:rss}
-  RSS =\sum^n_{i=1} {\big(y_i - b_0 - b_1 x_{i1} - b_2 x_{i2} - \cdots - b_p x_{ip} \big)}^2
+\begin{equation}\label{eq:sse}
+  SSE =\sum^n_{i=1} {\big(y_i - b_0 - b_1 x_{i1} - b_2 x_{i2} - \cdots - b_p x_{ip} \big)}^2
 \end{equation}
-minimeres. RSS er engelsk for Residuals Sum of Squares. Dette er samme fremgangsmetode som kendes fra simpel lineær regression. \(b_0\) kaldes for skæringen og de øvrige \(b\)'er kaldes hældninger.
+minimeres. SSE er engelsk for Sum of Squares Errors. Dette er samme fremgangsmetode som kendes fra simpel lineær regression. \(b_0\) kaldes for skæringen og de øvrige \(b\)'er kaldes hældninger.
 
 Formlen for koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er noget mere kompliceret i det generelle tilfælde, så den springer vi over her. Men nedenfor gennengår vi et eksempel på, hvordan man kan bestemme koefficienter ved brug af Microsoft Excel.
 
@@ -61,11 +61,11 @@ og vi definerer residualer som værende forskellen \(e_i\) mellem observationen 
 \begin{displaymath}
   e_i = y_i - \widehat{y_i}
 \end{displaymath}
-Bemærk at ligning \ref{eq:rss} også kan skrives
+Bemærk at ligning \ref{eq:sse} også kan skrives
 \begin{displaymath}
-  RSS =\sum^n_{i=1} {\big(y_i - b_0 - b_1 x_{i1} - b_2 x_{i2} - \cdots - b_p x_{ip} \big)}^2 = \sum^n_{i=1} {\big(y_i - \widehat{y_i} \big)}^2 =  \sum^n_{i=1} {e_i}^2
+  SSE =\sum^n_{i=1} {\big(y_i - b_0 - b_1 x_{i1} - b_2 x_{i2} - \cdots - b_p x_{ip} \big)}^2 = \sum^n_{i=1} {\big(y_i - \widehat{y_i} \big)}^2 =  \sum^n_{i=1} {e_i}^2
 \end{displaymath}
-så når vi finder minimum for \(RSS\), så minimerer vi residualerne eller med andre ord - forskellen mellem de observerede og fittede værdier.
+så når vi finder minimum for \(SSE\), så minimerer vi residualerne eller med andre ord - forskellen mellem de observerede og fittede værdier.
 
 \subsection{Visualisering af løsningen}
 I tilfældet med simpel regression bestemmer vi en ret linie som passer bedst til observationerne. Det er umuligt at visualisere multipel regression i det generelle tilfælde. For det særlige tilfælde, hvor vi har to forklarende variable \(x_1\) og \(x_2\) og dermed modellen
@@ -78,7 +78,7 @@ så kan vi stadig visualisere løsningen. Vi kan tænke på observationerne \((x
 \end{center}
 Løsningen er nu ikke længere en ret linie, men derimod den plan som ligger tættest på alle punkterne. På figuren kan vi også se residualerne - de er plottet som linier mellem observationerne og planen. Nogle observationer ligger over planen og er markeret med en grøn linie, mens andre observartioner ligger under planen og er markeret med en rød linie.
 
-\subsection{Prognoser}
+\subsection{Prognoser - TODO}
 Hvis koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er kendt, kan vi bruge formlen
 \begin{displaymath}
 \hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \cdots + b_p x_p
@@ -87,8 +87,8 @@ til at forudsige
 hvad bruger vi regression til - forudsige
 
 \subsection{Eksempel}
-Lad os se på et (simplificeret) eksempel på multipel regressionsanalyse. Eksemplet er hentet fra opgaven ``Prisdannelse på ejerlejligheder i København'' af Vibeke Stål og Anne Melvej Stennevad. Forfatterne undersøger, om der er en lineær sammenhæng mellem prisen på ejerlejligheder i København og en række faktorer såsom fx rente og byggeomkostninger.
-\begin{displaymath}{eq:model}
+Lad os se på et (simplificeret) eksempel på multipel regressionsanalyse. Eksemplet er hentet fra opgaven \href{http://studenttheses.cbs.dk/xmlui/handle/10417/6138}{``Prisdannelse på ejerlejligheder i København''}  af Vibeke Stål og Anne Melvej Stennevad. Forfatterne undersøger, om der er en lineær sammenhæng mellem prisen på ejerlejligheder i København og en række faktorer såsom fx rente og byggeomkostninger.
+\begin{displaymath}\label{eq:model}
   \textrm{prisindeks} = b_0 + b_1 * \textrm{byggeomkostninger} + b_2 * \textrm{rente}
 \end{displaymath}
 Hvordan bestemmer man regressionskoefficienterne \(b_0, b_1\) og \(b_2\), hvis vi har observationer som vist her i Excel
@@ -117,24 +117,25 @@ Der er en masse output fra beregningen, men i første omgang fokuseres vi på re
 \begin{center}\label{figure:regressionCoefficients}
 \includegraphics[width=16cm]{regression/images/regressionCoefficients.JPG}
 \end{center}
-Indsætter vi de fundne koefficienter i model \ref{eq:model} får vi
-\begin{displaymath}{eq:model}
+Indsætter vi de fundne koefficienter i model \ref{eq:model} får vi regressionsligningen
+\begin{displaymath}
   \textrm{prisindeks} = -90,95 + 2,35 * \textrm{byggeomkostninger} - 6,67 * \textrm{rente}
 \end{displaymath}
-tallene under overskriften ``Regression Statistics'':
+
+Efter at have bestemt selve modellen kigger vi på tallene under overskriften ``Regression Statistics'':
 \begin{center}\label{tabel:resultat}
-\includegraphics[height=4cm]{regression/images/resultat.JPG}
+\includegraphics[height=2.5cm]{regression/images/resultat.JPG}
 \end{center}
-hvor vi sætter fokus på Multiple R og R Square. På dansk kaldes disse to værdier for korrelations- og determinationskoefficienten.
+Her sætter vi fokus på Multiple R og R Square. På dansk kaldes disse to værdier for korrelations- og determinationskoefficienten.
 
 \subsection{Korrelationskoefficienten}
 Det er med Excel altid muligt at bestemme regressionskoefficienterne \(b_0,b_1,b_2,\ldots,b_p\), så spørgsmålet er mere, om det giver mening at forsøge at modellere en lineær sammenhæng mellem en afhængig variable og en eller flere forklarende variable. Det kan korrelationskoefficienten hjælpe os med at afklare. I Excel betegnes korrelationskoefficienten med ``Multiple R''. Men typisk bruger man blot betegnelsen R for korrelationskoefficienten.
 
 \subsubsection{Fortolkning af korrelationskoefficienten}
 Korrelation mellem to variable betyder, at hvis den ene variables ændre sig, så giver det en forudsigelig ændring i den anden variabel. Korrelationskoefficienten ligger altid mellem 0 og 1. Hvis den er 1, er der en deterministisk korrelation mellem variablene, dvs en ændring i den ene variabel vil helt sikkert medføre en ændring i den anden variable. Hvis værdien derimod er 0, så er der absolut ingen lineær sammenhæng mellem de to variable. Skematisk ser det ud som i tabel~\ref{tabel:correlation}.
-\begin{table}[]
+\begin{table}[h]
 \centering
-\caption{My caption}
+\caption{Fortolkning af korrelationskoefficienten}
 \label{tabel:correlation}
 \begin{tabular}{|r|l|}
 \hline
@@ -146,12 +147,12 @@ Korrelation mellem to variable betyder, at hvis den ene variables ændre sig, s�
 0,2                           & Svag lineær sammenhæng          \\ \hline
 \end{tabular}
 \end{table}
-\textbf{Bemærk} at en høj grad af korrelation på ingen måder kan bruges til at postulere en årsagssammenhæng (kausalitet) mellem variable. Se afsnittet TODO for mere.
+\textbf{Bemærk} at en høj grad af korrelation på ingen måder kan bruges til at postulere en årsagssammenhæng (kausalitet) mellem variable. Se afsnittet TODO for mere information.
 
 Hvis multipel lineær regression skal give mening, så \textit{skal} der være en lineær sammenhæng mellem den afhængige variable og de forklarende variable. Hvis vi kigger på eksemplet fra tidligere, jvf tabel~\ref{tabel:resultat}, så ser vi, at der her er en korrelationskoefficient på ca. 0,9553 og at der dermed i dette tilfælde er en korrelation mellem variable pris, byggeomkostninger og rente.
 
 \subsubsection{Formel for korrelationskoefficienten for to uafhængige variable}
-Den generelle formel for korrelationskoefficienten er kompliceret. TODO matrix notation. I tilfældet hvor vi kun har to uafhængige variable er det lidt nemmere at skrive formlen ned.
+Den generelle formel for korrelationskoefficienten er kompliceret og involveret matrix beregninger. I tilfældet hvor vi kun har to uafhængige variable er det lidt nemmere at skrive formlen ned.
 \begin{displaymath}\label{eq:correlation}
   R = \frac{\sqrt{r^2_{yx_1} + r^2_{yx_2} - 2r_{yx_1} r_{yx_2} r_{{x_1}x_2}}}{\sqrt{1 - r^2_{{x_1}x_2}}}
 \end{displaymath}
@@ -178,46 +179,86 @@ I Excel hedder determinationskoefficienten ``R Square'', hvilket giver god menin
 \end{displaymath}
 Man hører jænvligt alternative betegnelser for determinationskoefficienten som fx for\-kla\-rings\-grad\-en eller tilpasningsgraden.
 
+\subsubsection{Alternativ formel}
+Der findes en alternativ formel for \(R^2\) - som naturligvis giver samme værdi. Det er lettest at beregne determinationskoefficienten som kvadratet på korrelationskoefficienten men den alternative formel gør det nemmere at fortolke determinationskoefficienten.
+
+Vi har tidligere set, at SSE er forskellen mellem de fittede og observerede værdier. På samme måde kan man definere SSR som værende forskellen på de fittede værdier og gennemsnittet af observationerne, dvs
+\begin{displaymath}
+    \textrm{SSR} = \sum_{i=1}^{n} \Big( \widehat{y_i} - \bar{y} \Big)
+\end{displaymath}
+Definitionen på den totale ``Sum of Squares'' er
+\begin{displaymath}
+    \textrm{SST} = \textrm{SSR} + \textrm{SSE}
+\end{displaymath}
+
+For observationerne \(y_i\) definerer man den totale ``sum of squares'' som
+\begin{displaymath}
+    \textrm{SS}_T = \sum_{i=1}^{n} \Big( y_i - \bar{y} \Big )
+\end{displaymath}
+hvor \(\bar{y}\) er gennemsnittet af \(y_i\)'erne. Tilsvarende defineres  ``sum of squares'' for regressions. Den alternative formel for \(R^2\) er
+\begin{displaymath}
+    R^2 = \frac{SSR}{SST}
+\end{displaymath}
+
 \subsubsection{Fortolkning af Determinationskoefficienten}
+Vi har altså ligningen
+\begin{equation}
+\begin{align}
+    \textrm{SST}              &= \textrm{SSR} + \textrm{SSE} \\
+    \textrm{Totale variation} &= \textrm{Forklaret variation} \\
+                              &+ \textrm{Uforklaret variation}
+\end{align}
+\end{equation}
+så formlen for \(R^2\) er forholdet mellem den forklarede og totale variation i modellen. Så jo tættere \(R^2\) er på 1, desto mere variation er forklaret af modellen. Hvis \(R^2\) kommer meget tæt på 1 eller ligefrem bliver 1, så er der dog grund til ekstra omtanke. Se mere i afsnit ..
 
-
-explained variance
-
-R er en statistik, der vil give nogle oplysninger om godhed fit af en model. I regression, R determinationskoefficienten er et statistisk mål for hvor godt regressionslinjen tilnærmer de reelle datapunkter. Et R på 1 angiver, at regressionslinien passer perfekt til dataene.
-
-\subsubsection{Formel}
-
-
-\subsection{Residualplot}
-I ligning ... definerede vi residualerne som forskellen mellem de observerede værdier og modellens værdier.
-advanced highschool stats
-data = fit + residuals
-
-advanced highschool stats:
-TIP: Use a residual plot to determine if a linear model is appropriate
-When a residual plot appears as a random cloud of points, a linear model is generally
-appropriate. If a residual plot has any type of pattern, a linear model is not
-appropriate.
+\subsection{Residual plot}
+Det sidste output fra Excel som vi kigger nærmere på er residual plots. Husk at vi i menu \ref{figure:regressionMenu} sætte kryds ved ``Residual Plots''. Dette giver os disse to residual plots
+\begin{center}
+\includegraphics[width=12cm]{regression/images/residualplot1.JPG}
+\end{center}
+\begin{center}
+\includegraphics[width=12cm]{regression/images/residualplot2.JPG}
+\end{center}
+Husk at residualerne er forskellen mellem de fittede og observerede værdier. Hvis residual plottene virker helt tilfældige, så giver den mening at bruge en lineær model. Kan man derimod spotte en trend i residual plottet, som fx en ret linie eller et polynomium, så giver det ikke mening med en lineær model. Begge ovenstående plots virker tilfældige, så i vores eksempel giver det mening at bruge en lineær model.
 
 \subsection{Konfidensinterval for parametre}
-Vi har tidligere behandlet konfidensintervaller for middelværdier og sandsynslighedparameteren. Man kan også bestemme konfidensintervaller for regressionskoefficienterne. Faktisk er de en del af output, når man bruger Excel til regressionsanalyse. Kig igen på tabel  som indeholdt regressionskoefficienterne. Der er nogle kolonner med overskriften ``Lower 95\%'' og ``Upper 95\%''. Tallene i disse kolonner er nedre og øvre grænse for et \(100\% - 95\% = 5\%\) konfidensinterval omkring regressionskoefficienterne.
+Vi har tidligere behandlet konfidensintervaller for middelværdier og sandsynslighedparameteren. Man kan også bestemme konfidensintervaller for regressionskoefficienterne. Faktisk er de en del af output, når man bruger Excel til regressionsanalyse. Kig igen på tabel \ref{figure:regressionCoefficients} som indeholdt regressionskoefficienterne. Der er nogle kolonner med overskriften ``Lower 95\%'' og ``Upper 95\%''. Tallene i disse kolonner er nedre og øvre grænse for et \(100\% - 95\% = 5\%\) konfidensinterval omkring regressionskoefficienterne.
 
 Det kan være lidt forvirrende, at kolonnerne ``Lower 95\%'' og ``Upper 95\%'' er gentaget to gange med samme værdier. Hvis du kigger på menuen i figur ... kan du se, at man kan sætte kryds i ``Confidence Level'' og indtaste et konfidensniveau. Hvis man gør dette med fx 1\% så får man kolonnerne v ``Lower 95\%'' og ``Upper 95\%'' samt  ``Lower 99\%'' og ``Upper 99\%''. Dvs som udgangspunkt får man altid 5\% konfidensinterval med som resultat og derudover kan man få et ekstra interval efter eget valg.
 
+\subsubsection{Formel for konfidensinterval}
+Formel for \(1 - \alpha\) konfidensintervallet for de enkelte regressionskoefficienter er
+\begin{displaymath}
+    b_i \pm t(v, 1 - \alpha / 2) \textrm{se}(b_i)
+\end{displaymath}
+Her er
+\begin{itemize}
+    \item \(t\) t-test funktionen
+    \item \(v\) er antallet af observationer minus antallet af regressionskoefficienter og
+    \item se\((b_i)\) er ``standard error'' for \(b_i\)
+\end{itemize}
+Størrelsen se\((b_i)\) er svær at regne ud i hånden og formlen involvere matrix beregninger. Men kig igen på tabel \ref{figure:regressionCoefficients}. Faktisk er standard fejlen er del af output fra Excel. t-test funktionen er indbygget i Excel under navnet T.INV.2T.
 
+Som eksempel kan vi regne et 90\% konfidensinterval for \(b_1\). Her er \(v=24-3=21\), \(\alpha=0,1\), se\((b_i) = 0,42\) og \(b_1=2,35\), så konfidensintervallet bliver
+\begin{equation}
+\begin{align}
+    \Big[2,35 - \textrm{T.INV.2T(0,1;21)} * 0,42 ;  2,35 + \textrm{T.INV.2T(0,1;21)} * 0,42 \Big] &= \\
+    \Big[2,35 - 1,72 * 0,42 ;  2,35 + 1,72 * 0,42 \Big] &= \\
+    \Big[2,35 - 1,72 * 0,42 ;  2,35 + 1,72 * 0,42 \Big] &= \\
+    \Big[1,6276 ; 3,0724\Big]
+\end{align}
+\end{equation}
 
-
-
-
-\subsection{brug din fornuft}
+\subsection{Avanceret (kort) - TODO mangler}
 counterexample
+
 anscombe
+
 kig på graf
 
-\subsection{model selection}
-avanceret
-\subsection{adjusted \(R^2\)}
+model selection
 
+adjusted \(R^2\)
 
 pas på med multicollinearity.
 
