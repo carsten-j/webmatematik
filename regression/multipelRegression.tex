@@ -13,40 +13,70 @@ ligger så tæt på alle observationer \((y_i, x_i)\) som muligt.
 
 Verden er dog sjældent så simpelt indrettet, at man kan beskrive en \textit{afhængig} variabel \(y\) med kun en enkelt \textit{forklarende} variabel \(x\).
 
-Multipel regression er en udvidelse af simpel regression, hvor vi i stedet for en enkelt for\-kla\-ren\-de variabel har to eller flere forklarende variable. For\-kla\-ren\-de variable kaldes til tider også for \textit{kovarianter}.
+Multipel regression er en udvidelse af simpel regression, hvor vi i stedet for en enkelt for\-kla\-ren\-de variabel har to eller flere forklarende variable. For\-kla\-ren\-de variable kaldes til tider også for \textit{kovarianter} mens afhængige variable somme tider omtales som \textit{respons} variable.
 
 \subsection{Model}
-Vi har \(n\) observationer \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) hvor \(i=1,\ldots,n\) og ønsker at bestemme konstanter \(b_0,b_1,b_2,\ldots,b_p\), så funktionen
+Vi har \(n\) observationer \(y_i,x_{i1},x_{i2},\ldots,x_{ip}\) hvor \(i=1,\ldots,n\) og ønsker at bestemme konstanter \(b_0,b_1,b_2,\ldots,b_p\), så funktionen
 \begin{displaymath}
   y = b_0 + b_1 x_1 + b_2 x_2 + \cdots b_p x_p
 \end{displaymath}
-ligger så tæt på alle punkterne \(y_i,x_{1,i},x_{2,i},\ldots,x_{p,i}\) som muligt.
+ligger så tæt på alle punkterne \(y_i,x_{i1},x_{i2},\ldots,x_{ip}\) som muligt. Konstanterne kaldes for regressionskoefficienterne.
 
-Bemærk, at der nu er et dobbelt indeks på \(x\)'erne. Det er nødvendigt, da vi nu istedet for en enkelt forklarende variabel, har \(p\) forklarende variable. Så når vi skriver
-
+Bemærk, at der nu er et dobbelt indeks på \(x\)'erne. Det er nødvendigt, da vi nu har \(p\) forklarende variable istedet for blot en enkelt forklarende variabel. Så når vi skriver
 \begin{displaymath}
-  x_{ji}, \quad j=1,\ldots,p \textrm{ og } i=1,\ldots,n
+  x_{ij}, \quad i=1,\ldots,n \quad \textrm{ og } \quad j=1,\ldots,p
 \end{displaymath}
 er der tale om den \(j\)'te forklarende variable for den \(i\)'te observation.
-
-Koefficienter bliver normal fundet (estimeret) ved brug af mindste kvadrater metoden, dvs man vælger \(b_0, b_1, \ldots , b_p\)  således at udtrykket
-\begin{displaymath}
+Vi kan stille observationerne op i en tabel
+\begin{table}[h]
+\centering
+\caption{Oversigt over observationer}
+\label{my-label}
+\begin{tabular}{cccccc}
+\hline
+\multicolumn{1}{l}{Observation} & \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}Afhængig\\ variabel\end{tabular}} & \multicolumn{4}{c}{Forklarende variable}          \\ \hline
+                                & \(Y\)                                                                           & \(X_1\)    & \(X_2\)    & \(\cdots\) & \(X_p\)    \\ \hline
+1                               & \(y_1\)                                                                         & \(x_{11}\) & \(x_{12}\) & \(\cdots\) & \(x_{1p}\) \\ \hline
+2                               & \(y_2\)                                                                         & \(x_{21}\) & \(x_{22}\) & \(\cdots\) & \(x_{2p}\) \\ \hline
+3                               & \(y_3\)                                                                         & \(x_{31}\) & \(x_{32}\) & \(\cdots\) & \(x_{3p}\) \\ \hline
+\(\vdots\)                      & \(\vdots\)                                                                      & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) \\ \hline
+n                               & \(y_n\)                                                                         & \(x_{n1}\) & \(x_{n2}\) & \(\cdots\) & \(x_{np}\) \\ \hline
+\end{tabular}
+\end{table}
+for på den måde at vise, at vi har \(p\) forklarende variable og \(n\) observationer.
+Regressionskoefficienter bliver normal fundet (estimeret) ved brug af mindste kvadrater metoden, dvs man vælger \(b_0, b_1, \ldots , b_p\)  således at udtrykket
+\begin{equation}\label{eq:rss}
   RSS =\sum^n_{i=1} {\big(y_i - b_0 - b_1 x_{i1} - b_2 x_{i2} - \cdots - b_p x_{ip} \big)}^2
-\end{displaymath}
-minimeres. RSS er engelsk for Residuals Sum of Squares. Dette er samme fremgangsmetode som kendes fra simpel lineær regression. Ofte omtales \(b_0\) som skæringen og de øvrige \(b\)'er som hældningen.
+\end{equation}
+minimeres. RSS er engelsk for Residuals Sum of Squares. Dette er samme fremgangsmetode som kendes fra simpel lineær regression. \(b_0\) kaldes for skæringen og de øvrige \(b\)'er kaldes hældninger.
 
-Formlen for koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er noget mere kompliceret i det generelle tilfælde, så den springer vi over her. Men nedenfor viser vi et eksempel på, hvordan man kan bestemme koefficienter ved brug af Microsoft Excel.
+Formlen for koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er noget mere kompliceret i det generelle tilfælde, så den springer vi over her. Men nedenfor gennengår vi et eksempel på, hvordan man kan bestemme koefficienter ved brug af Microsoft Excel.
+
+\subsection{Residualer}
+Når vi har bestemt regressionskoefficienterne \(b_0,b_1,b_2,\ldots,b_p\) så kan vi udregnede de \textit{fittede} værdier for observationerne \(x_{i1},x_{i2},\ldots,x_{ip}\) hvor \(i=1,\ldots,n\). For den \(i\)'te observation er den fittede værdi
+\begin{displaymath}
+  \widehat{y_i} = b_0 + b_1 x_{i1} + b_2 x_{i2} + \cdots b_p x_{ip}
+\end{displaymath}
+og vi definerer residualer som værende forskellen \(e_i\) mellem observationen \(y_i\) og den fittede værdi \(\widehat{y_i}\)
+\begin{displaymath}
+  e_i = y_i - \widehat{y_i}
+\end{displaymath}
+Bemærk at ligning \ref{eq:rss} også kan skrives
+\begin{displaymath}
+  RSS =\sum^n_{i=1} {\big(y_i - b_0 - b_1 x_{i1} - b_2 x_{i2} - \cdots - b_p x_{ip} \big)}^2 = \sum^n_{i=1} {\big(y_i - \widehat{y_i} \big)}^2 =  \sum^n_{i=1} {e_i}^2
+\end{displaymath}
+så når vi finder minimum for \(RSS\), så minimerer vi residualerne eller med andre ord - forskellen mellem de observerede og fittede værdier.
 
 \subsection{Visualisering af løsningen}
 I tilfældet med simpel regression bestemmer vi en ret linie som passer bedst til observationerne. Det er umuligt at visualisere multipel regression i det generelle tilfælde. For det særlige tilfælde, hvor vi har to forklarende variable \(x_1\) og \(x_2\) og dermed modellen
 \begin{displaymath}
   y = b_0 + b_1 x_1 + b_2 x_2
 \end{displaymath}
-så kan vi stadig visualisere løsningen. Vi kan tænke på observationerne \((x_{1i}, x_{2i}, y_i), i=1,\ldots,n\) som punkter i rummet, dvs i 3D koordinatsystemet med akser \(X_1, X_2\) og \(Y\).
+så kan vi stadig visualisere løsningen. Vi kan tænke på observationerne \((x_{i1}, x_{i2}, y_i), i=1,\ldots,n\) som punkter i rummet, dvs i 3D koordinatsystemet med akser \(X_1, X_2\) og \(Y\).
 \begin{center}
-\missingfigure[figwidth=12cm]{}
+\includegraphics[height=12cm]{regression/images/visualisering.JPG}
 \end{center}
-Løsningen er nu ikke længere en ret linie, men derimod den plan som ligger tættest på alle punkterne.
+Løsningen er nu ikke længere en ret linie, men derimod den plan som ligger tættest på alle punkterne. På figuren kan vi også se residualerne - de er plottet som linier mellem observationerne og planen. Nogle observationer ligger over planen og er markeret med en grøn linie, mens andre observartioner ligger under planen og er markeret med en rød linie.
 
 \subsection{Prognoser}
 Hvis koefficienterne \(b_0,b_1,b_2,\ldots,b_p\) er kendt, kan vi bruge formlen
@@ -58,41 +88,47 @@ hvad bruger vi regression til - forudsige
 
 \subsection{Eksempel}
 Lad os se på et (simplificeret) eksempel på multipel regressionsanalyse. Eksemplet er hentet fra opgaven ``Prisdannelse på ejerlejligheder i København'' af Vibeke Stål og Anne Melvej Stennevad. Forfatterne undersøger, om der er en lineær sammenhæng mellem prisen på ejerlejligheder i København og en række faktorer såsom fx rente og byggeomkostninger.
-
-\begin{displaymath}
-  pris = b_0 + b_1 * byggeomkostninger + b_2 * renteniveau
+\begin{displaymath}{eq:model}
+  \textrm{prisindeks} = b_0 + b_1 * \textrm{byggeomkostninger} + b_2 * \textrm{rente}
 \end{displaymath}
-
-Hvordan bestemmer man \(b_0, b_1\) og \(b_2\) hvis vi har observationer som vist her i Excel
+Hvordan bestemmer man regressionskoefficienterne \(b_0, b_1\) og \(b_2\), hvis vi har observationer som vist her i Excel
 \begin{center}
-\includegraphics[height=12cm]{excel1.JPG}
+\includegraphics[height=12cm]{regression/images/data.JPG}
 \end{center}
 Hvis du selv ønsker at arbejde med dette datasæt, så kan det downloades via dette \href{https://gist.github.com/carsten-j/42595fb16fc646a22bf3f4bec1d81e59/archive/b45e8d1e5e14b83aa16daa652821a8d7b7a3b56d.zip}{link}.
 
 I menuen under ``Tools'' finder man ``Data Analysis''. Hvis Data Analysis ikke er en del af menuen, så er her en \href{https://support.office.com/en-us/article/Load-the-Analysis-ToolPak-6a63e598-cd6d-42e3-9317-6b40ba1a66b4}{vejledning} til hvordan man får den installeret i Excel.
 \begin{center}
-\includegraphics[height=8cm]{menu.JPG}
+\includegraphics[height=8cm]{regression/images/menu.JPG}
 \end{center}
 og dernæst fås en oversigt over de forskellige analyseværktøjer. Vælg ``Regression''
 \begin{center}
-\includegraphics[height=5cm]{analysisTools.JPG}
+\includegraphics[height=5cm]{regression/images/analysisTools.JPG}
 \end{center}
 Så dukker denne regression menu op
-\begin{center}
-\includegraphics[height=10cm]{regression.JPG}
+\begin{center}\label{figure:regressionMenu}
+\includegraphics[height=10cm]{regression/images/regression.JPG}
 \end{center}
 Her har vi som ``Input Y Range'' valgt kolonnen med prisindeks (inkl.\ overskriften). Dette er vores afhængige variable. Dernæst har vi som ``Input X Range'' valgt kolonnerne med data for byggeomkostninger og renter (igen inkl.\ overskrift). Ved at sætte kryds i ``Labels'' checkboksen fortæller vi Excel, at vores valg af inputdata indeholder overskrifter. Det gør det nemmere at læse resultaterne. Som det sidste vælger vi også ``Residual Plots''.
 
-Som udgangspunkt bliver alle resultater placeret i en nyt sheet. Så er det lettere at slette dette sheet og begynde forfra, hvis man får behov for det.
+Som udgangspunkt bliver alle resultater placeret i en nyt Excel sheet. Så er det lettere at slette dette sheet og begynde forfra, hvis man får behov for det.
 
-Der er en masse output fra beregningen, men i første omgang fokuseres vi på tallene under overskriften ``Regression Statistics'':
+Der er en masse output fra beregningen, men i første omgang fokuseres vi på regressionskoefficienterne
+\begin{center}\label{figure:regressionCoefficients}
+\includegraphics[width=16cm]{regression/images/regressionCoefficients.JPG}
+\end{center}
+Indsætter vi de fundne koefficienter i model \ref{eq:model} får vi
+\begin{displaymath}{eq:model}
+  \textrm{prisindeks} = -90,95 + 2,35 * \textrm{byggeomkostninger} - 6,67 * \textrm{rente}
+\end{displaymath}
+tallene under overskriften ``Regression Statistics'':
 \begin{center}\label{tabel:resultat}
-\includegraphics[height=4cm]{resultat.JPG}
+\includegraphics[height=4cm]{regression/images/resultat.JPG}
 \end{center}
 hvor vi sætter fokus på Multiple R og R Square. På dansk kaldes disse to værdier for korrelations- og determinationskoefficienten.
 
 \subsection{Korrelationskoefficienten}
-Det er med Excel altid muligt at bestemme konstanterne \(b_0,b_1,b_2,\ldots,b_p\), så spørgsmålet er mere, om det giver mening at forsøge at modellere en lineær sammenhæng mellem en afhængig variable og en eller flere forklarende variable. Det kan korrelationskoefficienten hjælpe os med at afklare. I Excel betegnes korrelationskoefficienten med ``Multiple R''. Men typisk bruger man blot betegnelsen R for korrelationskoefficienten.
+Det er med Excel altid muligt at bestemme regressionskoefficienterne \(b_0,b_1,b_2,\ldots,b_p\), så spørgsmålet er mere, om det giver mening at forsøge at modellere en lineær sammenhæng mellem en afhængig variable og en eller flere forklarende variable. Det kan korrelationskoefficienten hjælpe os med at afklare. I Excel betegnes korrelationskoefficienten med ``Multiple R''. Men typisk bruger man blot betegnelsen R for korrelationskoefficienten.
 
 \subsubsection{Fortolkning af korrelationskoefficienten}
 Korrelation mellem to variable betyder, at hvis den ene variables ændre sig, så giver det en forudsigelig ændring i den anden variabel. Korrelationskoefficienten ligger altid mellem 0 og 1. Hvis den er 1, er der en deterministisk korrelation mellem variablene, dvs en ændring i den ene variabel vil helt sikkert medføre en ændring i den anden variable. Hvis værdien derimod er 0, så er der absolut ingen lineær sammenhæng mellem de to variable. Skematisk ser det ud som i tabel~\ref{tabel:correlation}.
@@ -164,6 +200,11 @@ appropriate. If a residual plot has any type of pattern, a linear model is not
 appropriate.
 
 \subsection{Konfidensinterval for parametre}
+Vi har tidligere behandlet konfidensintervaller for middelværdier og sandsynslighedparameteren. Man kan også bestemme konfidensintervaller for regressionskoefficienterne. Faktisk er de en del af output, når man bruger Excel til regressionsanalyse. Kig igen på tabel  som indeholdt regressionskoefficienterne. Der er nogle kolonner med overskriften ``Lower 95\%'' og ``Upper 95\%''. Tallene i disse kolonner er nedre og øvre grænse for et \(100\% - 95\% = 5\%\) konfidensinterval omkring regressionskoefficienterne.
+
+Det kan være lidt forvirrende, at kolonnerne ``Lower 95\%'' og ``Upper 95\%'' er gentaget to gange med samme værdier. Hvis du kigger på menuen i figur ... kan du se, at man kan sætte kryds i ``Confidence Level'' og indtaste et konfidensniveau. Hvis man gør dette med fx 1\% så får man kolonnerne v ``Lower 95\%'' og ``Upper 95\%'' samt  ``Lower 99\%'' og ``Upper 99\%''. Dvs som udgangspunkt får man altid 5\% konfidensinterval med som resultat og derudover kan man få et ekstra interval efter eget valg.
+
+
 
 
 

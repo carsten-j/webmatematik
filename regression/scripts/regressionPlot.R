@@ -19,3 +19,5 @@ scatter3d(byggeomkostninger, prisindeks,rente,
           neg.res.col="red", 
           pos.res.col="green",
           revolutions = 2)
+
+rgl.snapshot("ch17.4.png", fmt = "png")
