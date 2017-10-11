@@ -202,13 +202,12 @@ hvor \(\bar{y}\) er gennemsnittet af \(y_i\)'erne. Tilsvarende defineres  ``sum 
 
 \subsubsection{Fortolkning af Determinationskoefficienten}
 Vi har altså ligningen
-\begin{equation}
 \begin{align}
     \textrm{SST}              &= \textrm{SSR} + \textrm{SSE} \\
     \textrm{Totale variation} &= \textrm{Forklaret variation} \\
                               &+ \textrm{Uforklaret variation}
 \end{align}
-\end{equation}
+
 så formlen for \(R^2\) er forholdet mellem den forklarede og totale variation i modellen. Så jo tættere \(R^2\) er på 1, desto mere variation er forklaret af modellen. Hvis \(R^2\) kommer meget tæt på 1 eller ligefrem bliver 1, så er der dog grund til ekstra omtanke. Se mere i afsnit ..
 
 \subsection{Residual plot}
@@ -240,28 +239,39 @@ Her er
 Størrelsen se\((b_i)\) er svær at regne ud i hånden og formlen involvere matrix beregninger. Men kig igen på tabel \ref{figure:regressionCoefficients}. Faktisk er standard fejlen er del af output fra Excel. t-test funktionen er indbygget i Excel under navnet T.INV.2T.
 
 Som eksempel kan vi regne et 90\% konfidensinterval for \(b_1\). Her er \(v=24-3=21\), \(\alpha=0,1\), se\((b_i) = 0,42\) og \(b_1=2,35\), så konfidensintervallet bliver
-\begin{equation}
 \begin{align}
     \Big[2,35 - \textrm{T.INV.2T(0,1;21)} * 0,42 ;  2,35 + \textrm{T.INV.2T(0,1;21)} * 0,42 \Big] &= \\
     \Big[2,35 - 1,72 * 0,42 ;  2,35 + 1,72 * 0,42 \Big] &= \\
     \Big[2,35 - 1,72 * 0,42 ;  2,35 + 1,72 * 0,42 \Big] &= \\
     \Big[1,6276 ; 3,0724\Big]
 \end{align}
-\end{equation}
 
-\subsection{Avanceret (kort) - TODO mangler}
-counterexample
+\subsection{Avancerede emner}
+Disse emner falder udenfor pensum men for den nysgerrige er her en kort introduktion til emner, som er vigtige i forbindelse med regressionsanalyse.
 
-anscombe
+\subsubsection{Udforskende dataanalyse}
+Indenfor området data science arbejder man en del med udforskende dataanalyse. Dette indebærer, at man før man kaster sig hovedkuls ud i at vælge den ene eller anden model, så tager man sig tid til at undersøge data nærmere. Det giver fx ikke mening at bruge en lineær regressionsmodel, hvis man på en graf kan se, at der umuligt kan være en lineær sammenhæng mellem en afhængig variable og en forklarende variabel. Det er ikke helt nemt at afgøre om der kan være en lineær sammenhæng mellem en afhængig variable og \textit{flere} forklarende variable. Så på nuværende tidspunkt er det bedste man kan gøre at undersøge om det er plausibelt at der er en lineær sammenhæng mellem ens afhængige varibel og de forklarende variable en for en.
 
-kig på graf
+Der findes et klassisk eksempel under navnet Anscombes kvartet, hvor  statistikeren Francis Anscombe viser fire forskellige datasæt med næsten identiske deskriptive statistikker (som fx middelværdi og varians), men når man laver en graf for hver af datasættene, så for man meget forskellige grafer.
+\begin{center}
+\includegraphics[width=12cm]{regression/images/Anscombes.JPG}
+\end{center}
+Grafen er fra ``Anscombe's quartet 3.svg. (2016, December 14). Wikimedia Commons, the free media repository'', hvor den original fil findes her \url{https://commons.wikimedia.org/w/index.php?title=File:Anscombe%27s_quartet_3.svg&oldid=226250329}.
 
-model selection
+\subsubsection{Model udvælgelse og multicollinearitet}
+Lad os sige, at vi har en model med en afhængig variabel og fire forklarende variable.
+\begin{displaymath}
+    y = b_0 + b_1 x_2 + b_2 x_2 + b_3 x_3 + b_4 x_4
+\end{displaymath}
+Hvordan kan vi være sikre på, at dette er den rigtige model. Måske skulle vi hellere udelade \(x_2\) eller \(x_3\) eller både \(x_2\) og \(x_3\). Sådanne spørgsmål forsøger man at besvare indenfor emnet model udvælgelse. Der findes en række statistiske tests som kan være med til at afgøre, om det er en god ide eller ej, at inkludere de enkelte variable.
 
-adjusted \(R^2\)
+Når man vælger de forklarende variable skal man også passe på med multicollinearitet. Dvs at ingen af de forklarende variable må kunne skrives som lineære funktioner af de øvrige forklarende variable. I eksempel med fire forklarende variable kan vi fx ikke have at
+\begin{displaymath}
+    x_2 = x_1 + x_4
+\end{displaymath}
 
-pas på med multicollinearity.
+\subsubsection{Justeret \(R^2\)}
+I forlængelse af forrige afsnit om model udvælgelse er det værd at bemærke følgende. Hvis vi tilføjer flere forklarende variable til vores model, så vil det stort set næsten altid være sådan, at værdien af \(R^2\) bliver større. Betyder det, at det altid er godt at tilføje flere forklarende variable til ens model? Hvis vi har \(n\) observationer, så kan vi jo vælge en model med \(n-1\) forklarende variable. Dette vil ofte give en værdi af \(R^2\) meget tæt på 1. Så må det jo være en god model! Svaret er nej. Derfor bruger man ofte ikke determinationskoefficienten \(R^2\) men en værdi som kaldes justeret \(R^2\), når man skal se på om det giver mening at tilføje en ekstra variable til modellen.
 
-kausalitet
-
-andre CAS værktøjer
+\subsubsection{Korrelation og kausalitet}
+Når vi arbejder med lineær regressionsanalyse leder vi efter korrelationer mellem den afhængige variable og en række forklarende variable. Det er meget vigtigt at have for øje, at en lineær sammenhæng mellem en række variable ikke er ensbetydende med en kausalitet eller årsagssammenhæng mellem de samme variable. På \href{http://videnskab.dk/kultur-samfund/korrelation-eller-kausalitet-hvornaar-er-der-en-aarsagssammenhaeng}{Videnskab.dk} kan du finde en let tilgængelig artikel om korrelation og kausalitet og lære mere om forskellen samt hvad man skal passe på med.
