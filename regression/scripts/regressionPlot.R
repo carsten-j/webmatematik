@@ -4,7 +4,7 @@ library(car)
 # set working directory
 setwd("~/Projects/webmatematik")
 # prepare data
-tbl <- read.csv("dataR.csv")
+tbl <- read.csv("regression/data/dataR.csv")
 # extract data
 byggeomkostninger <- tbl$byggeomkostninger
 rente <- tbl$rente
